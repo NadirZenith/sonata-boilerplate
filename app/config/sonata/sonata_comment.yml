@@ -1,0 +1,9 @@
+#
+# more information can be found here https://sonata-project.org/bundles/comment
+#
+sonata_comment:
+    manager_type: orm # can be 'orm' or 'mongodb'
+    class:
+        comment:  AppBundle\Entity\Comment\Comment # This is an optional value
+        thread:   AppBundle\Entity\Comment\Thread   # This is an optional value
+        category: AppBundle\Entity\Classification\Category   # This is an optional value

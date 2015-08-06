@@ -1,0 +1,13 @@
+{
+    "name": "Sonata Project Sandbox",
+    "homepage": "https://sonata-project.org/",
+    "authors": [
+        "Thomas Rabaix <thomas.rabaix@gmail.com>"
+    ],
+    "dependencies": {
+        "sonata-project-admin-bundle": "master",
+        "sonata-project-formatter-bundle": "master"
+    },
+    "license": "MIT",
+    "private": true
+}

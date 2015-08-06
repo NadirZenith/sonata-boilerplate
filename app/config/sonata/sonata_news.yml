@@ -1,0 +1,35 @@
+#
+# more information can be found here https://sonata-project.org/bundles/news
+#
+sonata_news:
+    class:
+        post:       AppBundle\Entity\News\Post
+        comment:    AppBundle\Entity\News\Comment
+        tag:        AppBundle\Entity\Classification\Tag
+        collection: AppBundle\Entity\Classification\Collection
+        user:       AppBundle\Entity\User\User
+        media:      AppBundle\Entity\Media\Media
+
+    title:        %sonata_news.blog_title%
+    link:         %sonata_news.blog_link%
+    description:  %sonata_news.blog_description%
+    salt:         %sonata_news.salt%
+
+    # permalink_generator: sonata.news.permalink.category # /party/new-year
+    permalink_generator: sonata.news.permalink.date # /2011/12/31/new-year
+
+    # comment options
+    comment:
+        notification:
+            emails:   %sonata_news.comment.emails%
+            from:     %sonata_news.comment.email_from%
+            template: 'SonataNewsBundle:Mail:comment_notification.txt.twig'
+
+
+# Enable Doctrine to map the provided entities
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    SonataNewsBundle: ~
