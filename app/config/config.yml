@@ -36,15 +36,6 @@ imports:
     - { resource: sonata/sonata_notification.yml }
     - { resource: sonata/sonata_classification.yml }
 
-    # Sonata e-commerce bundles
-    - { resource: sonata/sonata_price.yml }
-    - { resource: sonata/sonata_order.yml }
-    - { resource: sonata/sonata_payment.yml }
-    - { resource: sonata/sonata_product.yml }
-    - { resource: sonata/sonata_invoice.yml }
-    - { resource: sonata/sonata_delivery.yml }
-    - { resource: sonata/sonata_customer.yml }
-    - { resource: sonata/sonata_basket.yml }
 
 framework:
     #esi:                   ~
@@ -103,7 +94,6 @@ doctrine:
 
         types:
             json:     Sonata\Doctrine\Types\JsonType
-            currency: Sonata\Component\Currency\CurrencyDoctrineType
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
@@ -128,7 +118,6 @@ jms_serializer:
     metadata:
         directories:
             - { path: %kernel.root_dir%/../vendor/sonata-project/user-bundle/Resources/config/serializer/FOSUserBundle, namespace_prefix: 'FOS\UserBundle' }
-            - { path: %kernel.root_dir%/../vendor/sonata-project/ecommerce/src/BasketBundle/Resources/config/serializer/Component, namespace_prefix: 'Sonata\Component\Basket' }
             - { path: %kernel.root_dir%/../vendor/sonata-project/datagrid-bundle/Resources/config/serializer, namespace_prefix: 'Sonata\DatagridBundle' }
 
 # Assetic Configuration

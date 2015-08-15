@@ -284,35 +284,4 @@ fos_elastica:
                         model:    AppBundle\Entity\Classification\Category
                         provider: ~
 
-                # Ecommerce Bundle
-                product:
-                    serializer:   { groups: ['sonata_search'] }
-                    mappings:
-                        name:     { boost: 5 }
-                    persistence:
-                        model:    AppBundle\Entity\Product\Product
-                        provider: ~
-
-                order:
-                    serializer:   { groups: ['sonata_search'] }
-                    mappings:
-                        name:     { boost: 5 }
-                    persistence:
-                        model:    AppBundle\Entity\Order
-                        provider: ~
-
-                invoice:
-                    serializer:   { groups: ['sonata_search'] }
-                    mappings:
-                        name:     { boost: 5 }
-                    persistence:
-                        model:    AppBundle\Entity\Commerce\Invoice
-                        provider: ~
-
-                transaction:
-                    serializer:   { groups: ['sonata_search'] }
-                    mappings:
-                        name:     { boost: 5 }
-                    persistence:
-                        model:    AppBundle\Entity\Commerce\Transaction
-                        provider: ~
+                

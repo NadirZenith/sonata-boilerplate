@@ -58,26 +58,14 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
 
-            // Disable this if you don't want the audit on entities
-            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
-
             // API
             new FOS\RestBundle\FOSRestBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
 
-            // SONATA E-COMMERCE
-            new Sonata\BasketBundle\SonataBasketBundle(),
-            new Sonata\CustomerBundle\SonataCustomerBundle(),
-            new Sonata\DeliveryBundle\SonataDeliveryBundle(),
-            new Sonata\InvoiceBundle\SonataInvoiceBundle(),
-            new Sonata\OrderBundle\SonataOrderBundle(),
-            new Sonata\PaymentBundle\SonataPaymentBundle(),
-            new Sonata\ProductBundle\SonataProductBundle(),
-            new Sonata\PriceBundle\SonataPriceBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new FOS\CommentBundle\FOSCommentBundle(),
             new Sonata\CommentBundle\SonataCommentBundle(),
-
+            
             // SONATA FOUNDATION
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\CoreBundle\SonataCoreBundle(),
@@ -95,10 +83,6 @@ class AppKernel extends Kernel
 
             // CMF Integration
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
-
-            // DEMO and QA - Can be deleted
-            new Sonata\Bundle\DemoBundle\SonataDemoBundle(),
-            new Sonata\Bundle\QABundle\SonataQABundle(),
 
             // Disable this if you don't want the timeline in the admin
             new Spy\TimelineBundle\SpyTimelineBundle(),

@@ -49,9 +49,6 @@ sonata_media:
                 preview: { width: 100, quality: 100}
                 wide:    { width: 820, quality: 100}
 
-        product_catalog:
-            providers:
-                - sonata.media.provider.image
 
             formats:
                 preview:   { width: 100, quality: 100}
@@ -107,25 +104,6 @@ sonata_media:
 #
 #liip_imagine:
 #    filter_sets:
-#
-#        # this configuration match the sonata_media configuration format definition
-#        product_catalog_preview:
-#            quality: 75
-#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
-#            filters:
-#                thumbnail: { size: [100, 100], mode: outbound }
-#
-#        product_catalog_small:
-#            quality: 75
-#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
-#            filters:
-#                thumbnail: { size: [200, 100], mode: outbound }
-#
-#        product_catalog_large:
-#            quality: 75
-#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
-#            filters:
-#                thumbnail: { size: [600, 100], mode: outbound }
 #
 #        news_abstract:
 #            quality: 75
