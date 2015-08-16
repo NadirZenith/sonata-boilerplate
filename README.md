@@ -16,7 +16,7 @@ Sonata Standard Edition comes pre-configured with the following bundles:
 Installation
 ------------
 
-    git clone https://github.com/NadirZenith/sonata-boilerplate.git
+    git clone -b without-ecommerce https://github.com/NadirZenith/sonata-boilerplate.git
 
     cd sonata-boilerplate
 
