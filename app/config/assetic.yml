@@ -89,7 +89,6 @@ assetic:
             inputs:
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/jquery/dist/jquery.js
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/jquery.scrollTo/jquery.scrollTo.js
-#                - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/moment/min/moment.min.js
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/bootstrap/dist/js/bootstrap.js
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js
@@ -113,7 +112,7 @@ assetic:
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.min.css
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/ionicons/css/ionicons.min.css
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/admin-lte/dist/css/AdminLTE.css
-                - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/iCheck/skins/flat/blue.css
+                - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/iCheck/skins/square/blue.css
                 - %kernel.root_dir%/../web/bundles/sonataadmin/vendor/jqueryui/themes/flick/jquery-ui.min.css
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/select2/select2.css
                 - %kernel.root_dir%/../web/bundles/sonatacore/vendor/select2/select2-bootstrap.css
