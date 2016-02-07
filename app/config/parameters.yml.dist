@@ -1,7 +1,7 @@
 parameters:
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
-    database_name:     sonata_boilerplae
+    database_name:     sonata_boilerplate
     database_user:     sonata
     database_password: sonata
 
