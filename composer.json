@@ -79,8 +79,18 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "knplabs/knp-paginator-bundle": "^2.4",
         "dflydev/markdown": "^1.0",
-        "nelmio/api-doc-bundle": "^2.11"
+        "nelmio/api-doc-bundle": "^2.11",
+        
+        "nz/sonata-media-bundle" : "dev-master",
+        "php-ffmpeg/php-ffmpeg": "~0.5"
     },
+    
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/NadirZenith/NzSonataMediaBundle"
+        }
+    ],
 
     "require-dev": {
         "phpunit/phpunit": "~4.2",

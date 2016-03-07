@@ -20,6 +20,11 @@ sonata_media:
                 - sonata.media.provider.image
                 - sonata.media.provider.file
                 - sonata.media.provider.vimeo
+                #NzSonataMediaBundle
+                - sonata.media.provider.video
+                - sonata.media.provider.sapo
+                - sonata.media.provider.soundcloud
+                - sonata.media.provider.playwire
 
             formats:
                 small: { width: 100, quality: 100}
@@ -49,12 +54,6 @@ sonata_media:
                 preview: { width: 100, quality: 100}
                 wide:    { width: 820, quality: 100}
 
-
-            formats:
-                preview:   { width: 100, quality: 100}
-                small:     { width: 300, quality: 100}
-                large:     { width: 750, quality: 100}
-
     cdn:
         # define the public base url for the uploaded media
         server:
@@ -73,6 +72,11 @@ sonata_media:
             resizer:    false
         image:
            thumbnail: sonata.media.thumbnail.format          # default value
+           
+#           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
+#            thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
+        #video:
+        #   thumbnail: sonata.media.thumbnail.format          # default value
 #           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
 #            thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
         vimeo:

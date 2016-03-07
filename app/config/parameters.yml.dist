@@ -37,3 +37,8 @@ parameters:
 
     # Fixtures variables
     sonata.fixtures.page.create_subsite: false # create a second website, so you can test the multisite feature
+
+    #provisional nz sonata video provider settings
+    ffmpeg.binaries: ~
+    ffprobe.binaries: ~
+    ffmpeg.frame.seconds: ~
