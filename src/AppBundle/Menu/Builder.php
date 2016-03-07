@@ -50,6 +50,7 @@ class Builder extends ContainerAware
             )
         ));
 
+        $menu->addChild('Admin', array('route' => 'sonata_admin_dashboard'));
 
         return $menu;
     }
