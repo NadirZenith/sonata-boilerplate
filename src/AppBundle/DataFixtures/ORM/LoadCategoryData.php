@@ -22,6 +22,29 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
     protected $container;
 
     /**
+     * {@inheritDoc}
+     */
+    public function load(ObjectManager $manager)
+    {
+
+        $this->addCategory('Default Category', 'default');
+
+        //$manager->flush();
+    }
+
+    public function addCategory($name, $slug, $context = 'default', $enabled = true)
+    {
+        $category = $this->getCategoryManager()->create();
+        $category->setName($name);
+        $category->setSlug($slug);
+        $category->setEnabled($enabled);
+        $category->setContext($this->getReference(sprintf('context_%s', $context)));
+        $this->getCategoryManager()->save($category);
+
+        $this->setReference(sprintf('category_%s', $slug), $category);
+    }
+
+    /**
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
     public function setContainer(ContainerInterface $container = null)
@@ -37,25 +60,6 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
     public function getCategoryManager()
     {
         return $this->container->get('sonata.classification.manager.category');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function load(ObjectManager $manager)
-    {
-        //default category
-        $defaultContext = $this->getReference('context_default');
-
-        $defaultCategory = $this->getCategoryManager()->create();
-        $defaultCategory->setName('Default Category');
-        $defaultCategory->setSlug('default');
-        $defaultCategory->setEnabled(true);
-        $defaultCategory->setContext($defaultContext);
-
-        $this->setReference('root_default_category', $defaultCategory);
-
-        $manager->flush();
     }
 
     /**

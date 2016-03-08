@@ -37,14 +37,24 @@ class LoadContextData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        //default
+        $this->addContext('default', 'Default');
+
+        //news
+        $this->addContext('news', 'News');
+    }
+
+    public function addContext($id, $name, $enabled = true)
+    {
         $contextManager = $this->getContextManager();
         //default context
-        $default = $contextManager->create();
-        $default->setId('default');
-        $default->setName('Default');
-        $default->setEnabled(true);
-        $contextManager->save($default);
-        $this->setReference('context_default', $default);
+        $context = $contextManager->create();
+        $context->setId($id);
+        $context->setName($name);
+        $context->setEnabled($enabled);
+        $contextManager->save($context);
+
+        $this->setReference(sprintf('context_%s', $id), $context);
     }
 
     /**

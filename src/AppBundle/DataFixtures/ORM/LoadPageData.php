@@ -33,7 +33,6 @@ class LoadPageData extends AbstractFixture implements ContainerAwareInterface, O
         $this->create404ErrorPage($site);
         $this->create500ErrorPage($site);
         $this->createExamplePage($site);
-
     }
 
     /**
@@ -54,6 +53,142 @@ class LoadPageData extends AbstractFixture implements ContainerAwareInterface, O
         $this->getSiteManager()->save($site);
 
         return $site;
+    }
+
+    /**
+     * @param SiteInterface $site
+     */
+    public function createGlobalPage(SiteInterface $site)
+    {
+        $pageManager = $this->getPageManager();
+        $blockManager = $this->getBlockManager();
+        $blockInteractor = $this->getBlockInteractor();
+
+        $global = $pageManager->create();
+        $global->setName('global');
+        $global->setRouteName('_page_internal_global');
+        $global->setSite($site);
+
+        $pageManager->save($global);
+
+        // CREATE A HEADER BLOCK
+        $global->addBlocks($header = $blockInteractor->createNewContainer(array(
+            'enabled' => true,
+            'page' => $global,
+            'code' => 'header',
+        )));
+
+        $header->setName('The header container');
+        $header->addChildren($text = $blockManager->create());
+
+        //logo block
+        $text->setType('sonata.block.service.text');
+        $text->setSetting('content', '<h2><a href="/">Sonata Demo</a></h2>');
+        $text->setPosition(1);
+        $text->setEnabled(true);
+        $text->setPage($global);
+
+        //2nd header wrapper
+        $global->addBlocks($headerTop = $blockInteractor->createNewContainer(array(
+            'enabled' => true,
+            'page' => $global,
+            'code' => 'header-top',
+            ), function ($container) {
+            $container->setSetting('layout', '<div class="pull-right">{{ CONTENT }}</div>');
+        }));
+
+        $headerTop->setPosition(1);
+
+        $header->addChildren($headerTop);
+
+        //account block
+        $headerTop->addChildren($account = $blockManager->create());
+
+        $account->setType('sonata.user.block.account');
+        $account->setPosition(1);
+        $account->setEnabled(true);
+        $account->setPage($global);
+
+        //menu wrapper
+        $global->addBlocks($headerMenu = $blockInteractor->createNewContainer(array(
+            'enabled' => true,
+            'page' => $global,
+            'code' => 'header-menu',
+        )));
+
+        $headerMenu->setPosition(2);
+        $header->addChildren($headerMenu);
+        $headerMenu->setName('The header menu container');
+        $headerMenu->setPosition(3);
+
+        //menu
+        $headerMenu->addChildren($menu = $blockManager->create());
+        $menu->setType('sonata.block.service.menu');
+        $menu->setSetting('menu_name', "AppBundle:Builder:mainMenu");
+        $menu->setSetting('safe_labels', true);
+        $menu->setPosition(3);
+        $menu->setEnabled(true);
+        $menu->setPage($global);
+
+        //footer
+        $global->addBlocks($footer = $blockInteractor->createNewContainer(array(
+            'enabled' => true,
+            'page' => $global,
+            'code' => 'footer'
+            ), function ($container) {
+            $container->setSetting('layout', '<div class="row page-footer well">{{ CONTENT }}</div>');
+        }));
+
+        $footer->setName('The footer container');
+
+        // Footer : add 2 children block containers (left, right)
+        $footer->addChildren($footerLinksLeft = $blockInteractor->createNewContainer(array(
+            'enabled' => true,
+            'page' => $global,
+            'code' => 'content',
+            ), function ($container) {
+            $container->setSetting('layout', '<div class="col-md-6">{{ CONTENT }}</div>');
+        }));
+
+
+        $footer->addChildren($footerLinksRight = $blockInteractor->createNewContainer(array(
+            'enabled' => true,
+            'page' => $global,
+            'code' => 'content'
+            ), function ($container) {
+            $container->setSetting('layout', '<div class="col-md-6">{{ CONTENT }}</div>');
+        }));
+
+        $links = <<<CONTENT
+            <h4>LINKS</h4>
+            <ul class="links">
+                <li><a href="/example">Example</a></li>
+                <li><a href="/example">Example</a></li>
+                <li><a href="/example">Example</a></li>
+            </ul>
+CONTENT;
+
+        // Footer left links
+        $footerLinksLeft->addChildren($text = $blockManager->create());
+
+        $text->setType('sonata.block.service.text');
+        $text->setSetting('content', $links);
+
+        $text->setPosition(1);
+        $text->setEnabled(true);
+        $text->setPage($global);
+
+        // Footer right links
+        $footerLinksRight->addChildren($text = $blockManager->create());
+
+        $text->setType('sonata.block.service.text');
+        $text->setSetting('content', $links);
+
+        $text->setPosition(1);
+        $text->setEnabled(true);
+        $text->setPage($global);
+
+        $pageManager->save($global);
     }
 
     /**
@@ -159,151 +294,6 @@ class LoadPageData extends AbstractFixture implements ContainerAwareInterface, O
         $text->setPage($page);
 
         $pageManager->save($page);
-    }
-
-    /**
-     * @param SiteInterface $site
-     */
-    public function createGlobalPage(SiteInterface $site)
-    {
-        $pageManager = $this->getPageManager();
-        $blockManager = $this->getBlockManager();
-        $blockInteractor = $this->getBlockInteractor();
-
-        $global = $pageManager->create();
-        $global->setName('global');
-        $global->setRouteName('_page_internal_global');
-        $global->setSite($site);
-
-        $pageManager->save($global);
-
-        // CREATE A HEADER BLOCK
-        $global->addBlocks($header = $blockInteractor->createNewContainer(array(
-            'enabled' => true,
-            'page' => $global,
-            'code' => 'header',
-        )));
-
-        $header->setName('The header container');
-
-        $header->addChildren($text = $blockManager->create());
-
-        $text->setType('sonata.block.service.text');
-        $text->setSetting('content', '<h2><a href="/">Sonata Demo</a></h2>');
-        $text->setPosition(1);
-        $text->setEnabled(true);
-        $text->setPage($global);
-
-        $global->addBlocks($headerTop = $blockInteractor->createNewContainer(array(
-            'enabled' => true,
-            'page' => $global,
-            'code' => 'header-top',
-            ), function ($container) {
-            $container->setSetting('layout', '<div class="pull-right">{{ CONTENT }}</div>');
-        }));
-
-        $headerTop->setPosition(1);
-
-        $header->addChildren($headerTop);
-
-        $headerTop->addChildren($account = $blockManager->create());
-
-        $account->setType('sonata.user.block.account');
-        $account->setPosition(1);
-        $account->setEnabled(true);
-        $account->setPage($global);
-
-
-
-        $global->addBlocks($headerMenu = $blockInteractor->createNewContainer(array(
-            'enabled' => true,
-            'page' => $global,
-            'code' => 'header-menu',
-        )));
-
-        $headerMenu->setPosition(2);
-
-        $header->addChildren($headerMenu);
-
-        $headerMenu->setName('The header menu container');
-        $headerMenu->setPosition(3);
-
-        $headerMenu->addChildren($menu = $blockManager->create());
-
-        $menu->setType('sonata.block.service.menu');
-        $menu->setSetting('menu_name', "AppBundle:Builder:mainMenu");
-        $menu->setSetting('safe_labels', true);
-        $menu->setPosition(3);
-        $menu->setEnabled(true);
-        $menu->setPage($global);
-
-        $global->addBlocks($footer = $blockInteractor->createNewContainer(array(
-            'enabled' => true,
-            'page' => $global,
-            'code' => 'footer'
-            ), function ($container) {
-            $container->setSetting('layout', '<div class="row page-footer well">{{ CONTENT }}</div>');
-        }));
-
-        $footer->setName('The footer container');
-
-        // Footer : add 2 children block containers (left, right)
-
-        $footer->addChildren($footerLinksLeft = $blockInteractor->createNewContainer(array(
-            'enabled' => true,
-            'page' => $global,
-            'code' => 'content',
-            ), function ($container) {
-            $container->setSetting('layout', '<div class="col-md-6">{{ CONTENT }}</div>');
-        }));
-
-
-        $footer->addChildren($footerLinksRight = $blockInteractor->createNewContainer(array(
-            'enabled' => true,
-            'page' => $global,
-            'code' => 'content'
-            ), function ($container) {
-            $container->setSetting('layout', '<div class="col-md-6">{{ CONTENT }}</div>');
-        }));
-
-
-        // Footer left links
-        $footerLinksLeft->addChildren($text = $blockManager->create());
-
-        $text->setType('sonata.block.service.text');
-        $text->setSetting('content', <<<CONTENT
-<h4>LINKS</h4>
-<ul class="links">
-    <li><a href="/example">Example</a></li>
-    <li><a href="/example">Example</a></li>
-    <li><a href="/example">Example</a></li>
-</ul>
-CONTENT
-        );
-
-        $text->setPosition(1);
-        $text->setEnabled(true);
-        $text->setPage($global);
-
-        // Footer right links
-        $footerLinksRight->addChildren($text = $blockManager->create());
-
-        $text->setType('sonata.block.service.text');
-        $text->setSetting('content', <<<CONTENT
-<h4>LINKS</h4>
-<ul class="links">
-    <li><a href="/example">Example</a></li>
-    <li><a href="/example">Example</a></li>
-    <li><a href="http://www.github.com/sonata-project" target="_blank">Github</a></li>
-</ul>
-CONTENT
-        );
-
-        $text->setPosition(1);
-        $text->setEnabled(true);
-        $text->setPage($global);
-
-        $pageManager->save($global);
     }
 
     /**

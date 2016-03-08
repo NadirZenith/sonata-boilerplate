@@ -28,9 +28,26 @@ class LoadCollectionData extends AbstractFixture implements OrderedFixtureInterf
      */
     public function load(ObjectManager $manager)
     {
-        /*$productContext = $this->getReference('context_product_catalog');*/
+        $this->addCollection('Default Collection', 'default-collection');
+    }
 
-        /* $manager->flush(); */
+    public function addCollection($name, $slug, $context = 'default', $description = '', $enabled = true)
+    {
+
+        $collection = $this->getCollectionManager()->create();
+        $collection->setName($name);
+        $collection->setSlug($slug);
+        $collection->setContext($this->getContext($context));
+        $collection->setDescription($description);
+        $collection->setEnabled($enabled);
+        $this->getCollectionManager()->save($collection);
+
+        $this->setReference(sprintf('collection_%s', $slug), $collection);
+    }
+
+    public function getContext($id)
+    {
+        return $this->getReference(sprintf('context_%s', $id));
     }
 
     /**

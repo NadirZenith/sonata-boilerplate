@@ -16,18 +16,29 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface, O
 
     public function load(ObjectManager $manager)
     {
+        $this->addUser('dev', false, true, false, true);
+        $this->addUser('user');
+    }
+
+    public function addUser($username, $email = false, $enabled = true, $locked = false, $superadmin = false)
+    {
+
         $manager = $this->getUserManager();
         $faker = $this->getFaker();
 
         $user = $manager->createUser();
-        $user->setUsername('dev');
-        $user->setEmail($faker->safeEmail);
-        $user->setPlainPassword('dev');
-        $user->setEnabled(true);
-        $user->setSuperAdmin(true);
-        $user->setLocked(false);
+        $user->setUsername($username);
+        $user->setPlainPassword($username);
+
+        $mail = $email ? $email : $faker->safeEmail;
+        $user->setEmail($mail);
+        $user->setEnabled($enabled);
+        $user->setLocked($locked);
+        $user->setSuperAdmin($superadmin);
 
         $manager->updateUser($user);
+
+        $this->setReference(sprintf('user_%s', $username), $user);
     }
 
     function getOrder()
