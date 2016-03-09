@@ -1,20 +1,56 @@
 {% block sonata_page_top_bar %}
-    {% block page_top_bar %} {# Deprecated block #}
-        {% if sonata_page.isEditor or ( app.user and is_granted('ROLE_PREVIOUS_ADMIN') ) %}
+    {% if sonata_page.isEditor or ( app.user and is_granted('ROLE_PREVIOUS_ADMIN') ) %}
 
-            {% if sonata_page.isEditor and sonata_page.isInlineEditionOn %}
-                <!-- CMS specific variables -->
-                <script>
-                    jQuery(document).ready(function () {
-                        Sonata.Page.init({
-                            url: {
-                                block_save_position: '{{ sonata_admin.objectUrl('sonata.page.admin.page', 'edit', page) }}',
-                                block_edit: '{{ sonata_admin.url('sonata.page.admin.page|sonata.page.admin.block', 'edit', {'id': 'BLOCK_ID'}) }}'
-                            }
-                        });
+        {% if sonata_page.isEditor and sonata_page.isInlineEditionOn %}
+            <!-- CMS specific variables -->
+            <script>
+
+                jQuery(document).ready(function () {
+                    Sonata.Page.init({
+                        url: {
+                            block_save_position: '{{ sonata_admin.objectUrl('sonata.page.admin.page', 'edit', page) }}',
+                            block_edit: '{{ sonata_admin.url('sonata.page.admin.page|sonata.page.admin.block', 'edit', {'id': 'BLOCK_ID'}) }}'
+                        }
                     });
-                </script>
-            {% endif %}
+
+
+                });
+            </script>
+        {% endif %}
+        <script>
+            (function ($) {
+                $(document).ready(function () {
+                    var $bar = $('.sonata-page-top-bar');
+                    $bar.on('mouseover', function () {
+                        $bar.addClass('visible');
+                    });
+                    $bar.on('mouseout', function () {
+                        $bar.removeClass('visible');
+                    });
+                });
+            })(jQuery);
+        </script>
+        <style>
+            .sonata-page-top-bar{
+                top: -20px;
+                min-height: 25px;
+                opacity: 0.3;
+
+                -webkit-transition: 0.3s ease-in-out;
+                -moz-transition: 0.3s ease-in-out;
+                -o-transition: 0.3s ease-in-out;
+                transition: 0.3s ease-in-out;
+            }
+            .sonata-page-top-bar.visible{
+                top:0;
+                opacity: 1;
+            }
+            .sonata-page-top-bar .navbar-nav > li > a {
+                padding-top: 3px;
+                padding-bottom: 3px;
+            }
+        </style>
+        <div>
 
             <header class="sonata-bc sonata-page-top-bar navbar navbar-inverse navbar-fixed-top" role="banner"
                     {% if sonata_page.isEditor and sonata_page.isInlineEditionOn %}
@@ -93,7 +129,7 @@
                     </ul>
                 </div>
             </header>
+        </div>
 
-        {% endif %}
-    {% endblock %}
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    
+    <parameters>
+        <parameter key="app.locale_listener.class">AppBundle\EventListener\LocaleListener</parameter>
+        <parameter key="app.user_locale_listener.class">AppBundle\EventListener\UserLocaleListener</parameter>
+    </parameters>
+    
+    <services>
+        
+        <!--   Locale listener      -->
+        <service id="app.locale_listener" class="%app.locale_listener.class%">
+            <argument>%kernel.default_locale%</argument>
+
+            <tag name="kernel.event_subscriber" />
+        </service>
+        
+        <!--   User Locale listener    -->
+        <service id="app.user_locale_listener"
+                 class="%app.user_locale_listener.class%">
+
+            <argument type="service" id="session"/>
+
+            <tag name="kernel.event_listener"
+                 event="security.interactive_login" 
+                 method="onInteractiveLogin" />
+        </service>
+        
+    </services>
+
+</container>

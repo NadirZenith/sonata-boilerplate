@@ -35,23 +35,51 @@ class Builder extends ContainerAware
     public function mainMenu(FactoryInterface $factory, array $options)
     {
 
-
         $menuOptions = array_merge($options, array(
             'childrenAttributes' => array('class' => 'nav nav-pills'),
         ));
 
         $menu = $factory->createItem('main', $menuOptions);
-        $menu->addChild('Home', array('route' => '_page_alias_home'));
+        $menu->addChild($this->trans('Home'), array('route' => '_page_alias_home'));
 
-        $menu->addChild('Example Page', array(
+        $menu->addChild($this->trans('Example Page'), array(
             'route' => 'page_slug',
             'routeParameters' => array(
                 'path' => '/example'
             )
         ));
 
-        $menu->addChild('Admin', array('route' => 'sonata_admin_dashboard'));
+        $menu->addChild($this->trans('Admin'), array('route' => 'sonata_admin_dashboard'));
 
+        $curr_locale = $this->container->get('request')->getLocale();
+        $locale_selector = $menu->addChild($this->trans('Locale') . ' ' . $curr_locale, array(
+            'uri' => '#',
+            'attributes' => array('class' => 'dropdown'),
+            'childrenAttributes' => array('class' => 'dropdown-menu'),
+            'linkAttributes' => array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'data-target' => '#'),
+            /* 'label' => 'Products', */
+            'extras' => array(
+                'safe_label' => true,
+            )
+        ));
+        $locales = [
+            'pt', 'en', 'es'
+        ];
+
+        foreach ($locales as $locale) {
+            $label = '';
+            if ($curr_locale === $locale) {
+                $label .= '-> ';
+            }
+            $locale_selector->addChild($label . $locale, array(
+                'uri' => sprintf('?_locale=%s', $locale),
+            ));
+        }
         return $menu;
+    }
+
+    private function trans($msg)
+    {
+        return $this->container->get('translator')->trans($msg);
     }
 }

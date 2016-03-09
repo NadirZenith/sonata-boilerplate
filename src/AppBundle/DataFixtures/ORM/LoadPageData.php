@@ -213,6 +213,40 @@ CONTENT;
         $homepage->setRouteName(PageInterface::PAGE_ROUTE_CMS_NAME);
         $homepage->setSite($site);
 
+        // left container
+        $homepage->addBlocks($left = $blockInteractor->createNewContainer(array(
+            'enabled' => true,
+            'page' => $homepage,
+            'code' => 'left_col',
+        )));
+
+        $left->setName('The left container');
+        $left->addChildren($text = $blockManager->create());
+
+        // left block
+        $text->setType('sonata.block.service.text');
+        $text->setSetting('content', '<h2>Left content</h2>');
+        $text->setPosition(1);
+        $text->setEnabled(true);
+        $text->setPage($homepage);
+
+        // right container
+        $homepage->addBlocks($right = $blockInteractor->createNewContainer(array(
+            'enabled' => true,
+            'page' => $homepage,
+            'code' => 'right_col',
+        )));
+        $right->setName('The right container');
+        $right->addChildren($text = $blockManager->create());
+
+        // right block
+        $text->setType('sonata.block.service.text');
+        $text->setSetting('content', '<h2>Right content</h2>');
+        $text->setPosition(1);
+        $text->setEnabled(true);
+        $text->setPage($homepage);
+
+
         $pageManager->save($homepage);
     }
 
