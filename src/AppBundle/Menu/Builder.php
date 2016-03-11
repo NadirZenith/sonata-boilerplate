@@ -76,10 +76,13 @@ class Builder extends ContainerAware
             ));
         }
 
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $security_token = $this->container->get('security.token_storage')->getToken();
+        if ($security_token) {
+            $user = $security_token->getUser();
 
-        if ($user instanceof User && $user->hasRole('ROLE_SUPER_ADMIN')) {
-            $menu->addChild($this->trans('Admin'), array('route' => 'sonata_admin_dashboard'));
+            if ($user instanceof User && $user->hasRole('ROLE_SUPER_ADMIN')) {
+                $menu->addChild($this->trans('Admin'), array('route' => 'sonata_admin_dashboard'));
+            }
         }
 
         return $menu;
