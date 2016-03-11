@@ -13,6 +13,7 @@ namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use AppBundle\Entity\User\User;
 
 /**
  * Class Builder
@@ -49,7 +50,6 @@ class Builder extends ContainerAware
             )
         ));
 
-        $menu->addChild($this->trans('Admin'), array('route' => 'sonata_admin_dashboard'));
 
         $curr_locale = $this->container->get('request')->getLocale();
         $locale_selector = $menu->addChild($this->trans('Locale') . ' ' . $curr_locale, array(
@@ -75,6 +75,13 @@ class Builder extends ContainerAware
                 'uri' => sprintf('?_locale=%s', $locale),
             ));
         }
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        if ($user instanceof User && $user->hasRole('ROLE_SUPER_ADMIN')) {
+            $menu->addChild($this->trans('Admin'), array('route' => 'sonata_admin_dashboard'));
+        }
+
         return $menu;
     }
 
