@@ -70,6 +70,17 @@ sonata_admin:
                     - sonata.media.admin.media
                     - sonata.media.admin.gallery
                     - sonata.comment.admin.thread
+                    
+            sonata.admin.group.wp:
+                label:           NzBundles
+                label_catalogue: AppBundle
+                icon:            '<i class="fa fa-spinner"></i>'
+                items:
+                    - nz_migration.admin
+                    - nz_wordpress.admin.user
+                    - nz_wordpress.admin.user_meta
+                    - nz_wordpress.admin.post
+                    - nz_wordpress.admin.post_meta
 
 
             sonata.admin.group.classification:

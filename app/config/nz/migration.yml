@@ -1,0 +1,123 @@
+nz_migration:
+    
+    wp:
+        user:
+            service_id: nz.migration.wp.user_default
+            src_entity: Nz\WordpressBundle\Entity\User
+            target_entity: AppBundle\Entity\User\User
+            fields:
+                wpId:               id
+                email:              email
+                password:           password
+                #salt:               salt
+                username:           nicename
+                createdAt:          registeredDate
+                enabled:            [status, boolean]
+                website:            url
+
+
+            metas:
+                firstName:          first_name
+                lastName:           last_name
+                biography:          description
+                #hombre mujer
+                gender:             [gender, app.gender] 
+                #have both country & locale
+                locale:             [country, app.locale]
+                locale:             [lang, locale]
+                lastLogin:          [last_login_time, datetime]
+                dateOfBirth:        [birthday, datetime]
+
+                profileImage:       [_nz_user_profile_images, app.profile_images, [context: user_image_profile]]
+                backgroundImage:    [_nz_user_profile_images, app.profile_images, [context: user_image_background]]
+                city:               city
+                facebookUrl:        facebook
+                youtubeUrl:         youtube
+                twitterUrl:         twitter
+                soundcloudUrl:      soundcloud
+                googlePlusUrl:      google-plus
+                instagramUrl:       instagram
+
+        posts:
+         
+            post:
+                #service_id: ~
+                service_id: nz.migration.wp.post_default
+                target_entity: AppBundle\Entity\News\Post
+                src_entity: Nz\WordpressBundle\Entity\Post
+                fields: 
+                    wpId:                       id
+                    author:                     [user, wpid]
+                    title:                      title
+                    slug:                       slug
+                    content:                    content
+                    rawContent:                 content
+                    abstract:                   content
+                    contentFormatter:           [id, value, [value: rawhtml]]
+                    commentsDefaultStatus:      [id, value, [value: 0]]
+
+                    enabled:                    [ status, boolean ]
+                    createdAt:                  date
+                    publicationDateStart:       date
+                    updatedAt:                  modifiedDate
+                    collection:                 [id , app.collection, [slug: news]]
+                metas:
+                    image:                      [ _thumbnail_id, thumbnail, [context: post] ]
+
+            _cool-place:
+                #service_id: ~
+                service_id: nz.migration.wp.post_default
+                target_entity: App\CmBundle\Entity\Agenda\Place
+                src_entity: Nz\WordpressBundle\Entity\Post
+                fields: 
+                    wpId:                       id
+                    author:                     [user, wpid]
+                    name:                      title
+                    abstract:                   content
+                    content:                    [content, string, [string: " "] ]
+                    slug:                       slug
+
+                    enabled:                    [ status, boolean ]
+                    createdAt:                  date
+
+
+                    #collection:                 [id , app.collection, [slug: music]]
+                metas:
+                    image:                      [ _thumbnail_id, thumbnail, [context: place] ]
+                    #address:                    [ coolplace_mapaddress, app.map, [context: news] ]
+                    address:                    coolplace_mapaddress
+            agenda:
+                #service_id: ~
+                service_id: nz.migration.wp.post_default
+                target_entity: App\CmBundle\Entity\Agenda\Event
+                src_entity: Nz\WordpressBundle\Entity\Post
+                fields: 
+                    wpId:                       id
+                    author:                     [user, wpid]
+                    title:                      title
+                    abstract:                   content
+                    content:                    content
+                    slug:                       slug
+
+                    enabled:                    [ status, boolean ]
+                    createdAt:                  date
+
+
+                metas:
+                    featured:                   [ wpcf-event_featured, boolean ]
+                    promoter:                   wpcf-event_promoter
+                    image:                      [ _thumbnail_id, thumbnail, [context: agenda] ]
+                    backFlyer:                  [ wpcf-event_flyer_back, thumbnail, [context: agenda] ]
+                    price:                      wpcf-event_price
+                    priceConditions:            wpcf-event_price_conditions
+                    beginAt:                    [ wpcf-event_begin_date, datetime ]
+                    endAt:                      [ wpcf-event_end_date, datetime ]
+                    #collection:                 [wpcf-event_type , app.collection, [slug: music]]
+                    place:                      [relation-to-coolplace , app.place]
+                    #meta:                       [wpcf-event_place_address, meta, [ key: place_address]]
+                    #meta:                       [wpcf-event_place_name, meta, [ key: place_name]]
+                extra:
+                    place_address:              [wpcf-event_place_address, meta, [ key: place_address]]
+                    place_name:                 [wpcf-event_place_name, meta, [ key: place_name]]
+
+

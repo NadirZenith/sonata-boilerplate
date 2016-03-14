@@ -25,6 +25,7 @@ sonata_media:
                 - sonata.media.provider.sapo
                 - sonata.media.provider.soundcloud
                 - sonata.media.provider.playwire
+                - sonata.media.provider.audio
 
             formats:
                 small: { width: 100, quality: 100}

@@ -91,7 +91,9 @@ class AppKernel extends Kernel
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             
             //Nz Bundles
-            new Nz\SonataMediaBundle\NzSonataMediaBundle()
+            new Nz\SonataMediaBundle\NzSonataMediaBundle(),
+            new Nz\WordpressBundle\NzWordpressBundle(),
+            new Nz\MigrationBundle\NzMigrationBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

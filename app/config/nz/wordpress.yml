@@ -1,0 +1,25 @@
+nz_wordpress:
+    
+    # Doctrine connection to use. Default is 'default'.
+    table_prefix: "wp_"
+    entity_manager: wp_manager
+    
+doctrine:
+    dbal:
+
+        connections:
+            wp_connection:
+                driver:   %database_driver%
+                host:     %database_host%
+                user:     %database_user%
+                password: %database_password%
+                dbname:   %wp_database_name%
+                charset:  UTF8
+                server_version: 5.5
+                
+    orm:
+        entity_managers:
+            wp_manager:
+                connection: wp_connection
+                mappings:  
+                    NzWordpressBundle: ~

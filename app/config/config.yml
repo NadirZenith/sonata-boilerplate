@@ -35,6 +35,10 @@ imports:
     - { resource: sonata/sonata_user.yml }
     - { resource: sonata/sonata_notification.yml }
     - { resource: sonata/sonata_classification.yml }
+    
+    # Nz
+    - { resource: nz/wordpress.yml }
+    - { resource: nz/migration.yml }
 
 
 framework:
