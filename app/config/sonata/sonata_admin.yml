@@ -57,8 +57,6 @@ sonata_admin:
             - { position: left, type: sonata.news.block.recent_posts, settings: { title: Recent Posts, number: 7, mode: admin }}
 #            - { position: right, type: sonata.block.service.rss, settings: { title: Sonata Project's Feeds, url: https://sonata-project.org/blog/archive.rss, template: SonataAdminBundle:Block:block_rss_dashboard.html.twig }}
 
-
-
         groups:
             sonata.admin.group.content:
                 label:           sonata_content
@@ -71,10 +69,18 @@ sonata_admin:
                     - sonata.media.admin.gallery
                     - sonata.comment.admin.thread
                     
-            sonata.admin.group.wp:
-                label:           NzBundles
+            sonata.admin.group.crawler:
+                label:           NzCrawler
                 label_catalogue: AppBundle
-                icon:            '<i class="fa fa-spinner"></i>'
+                icon:            '<i class="fa fa-globe"></i>'
+                items:
+                    - nz.crawler.admin.profile
+                    - nz.crawler.admin.link
+                    
+            sonata.admin.group.wp:
+                label:           NzWordpress
+                label_catalogue: AppBundle
+                icon:            '<i class="fa fa-wordpress"></i>'
                 items:
                     - nz_migration.admin
                     - nz_wordpress.admin.user

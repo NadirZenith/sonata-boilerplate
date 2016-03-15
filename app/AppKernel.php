@@ -93,7 +93,8 @@ class AppKernel extends Kernel
             //Nz Bundles
             new Nz\SonataMediaBundle\NzSonataMediaBundle(),
             new Nz\WordpressBundle\NzWordpressBundle(),
-            new Nz\MigrationBundle\NzMigrationBundle()
+            new Nz\MigrationBundle\NzMigrationBundle(),
+            new Nz\CrawlerBundle\NzCrawlerBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -84,7 +84,8 @@
         "nz/sonata-media-bundle" : "dev-master",
         "php-ffmpeg/php-ffmpeg": "~0.5",
         "nz/wordpress-bundle": "dev-master",
-        "nz/migration-bundle": "dev-master"
+        "nz/migration-bundle": "dev-master",
+        "nz/crawler-bundle": "dev-master"
 
     },
     
@@ -100,6 +101,10 @@
         {
             "type": "git",
             "url": "https://github.com/NadirZenith/NzMigrationBundle.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/NadirZenith/NzCrawlerBundle.git"
         }
     ],
 
