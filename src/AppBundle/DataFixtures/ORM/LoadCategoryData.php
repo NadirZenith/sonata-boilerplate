@@ -28,6 +28,7 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
     {
 
         $this->addCategory('Default Category', 'default');
+        $this->addCategory('Crawl Category', 'crawl', 'crawl');
 
         //$manager->flush();
     }

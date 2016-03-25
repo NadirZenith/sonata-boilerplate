@@ -28,7 +28,6 @@ sonata_media:
                 - sonata.media.provider.audio
 
             formats:
-                small: { width: 100, quality: 100}
                 big:   { width: 970 , quality: 100}
 
         news:
@@ -38,6 +37,23 @@ sonata_media:
             formats:
                 abstract: { width: 100, quality: 100}
                 wide:     { width: 820, quality: 100}
+                
+        crawl:
+            providers:
+                - sonata.media.provider.image
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.file
+                - sonata.media.provider.vimeo
+                #NzSonataMediaBundle
+                - sonata.media.provider.video
+                - sonata.media.provider.sapo
+                - sonata.media.provider.soundcloud
+                - sonata.media.provider.playwire
+                - sonata.media.provider.audio
+
+            formats:
+                #abstract: { width: 100, quality: 100}
 
         sonata_collection:
             providers:

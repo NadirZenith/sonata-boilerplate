@@ -93,7 +93,8 @@ doctrine:
                 user:     %database_user%
                 host:     %database_host%
                 password: %database_password%
-                charset:  UTF8
+                #charset:  UTF8
+                charset:  utf8mb4
                 server_version: 5.5
 
         types:

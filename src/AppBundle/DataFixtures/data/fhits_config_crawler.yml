@@ -1,0 +1,36 @@
+#post page only have iframes(top & destiny blog)
+base_host:                http://www.fhits.com.br/
+base_domain:              http://www.fhits.com.br/
+logo_url:                 'http://www.fhits.com.br/assets/images/logo-fthis.jpg'
+baseurl:                  http://www.fhits.com.br/home/getposts/
+link_filter_selector:     html body article.item-masory div.content-item > a
+start_page:               0
+limit_pages:              2
+#html.js body div#main-content.full-wrap.home div.left-content div.masory.masonry article.item-masory.post.masonry-brick div.content-item a
+next_page_mask:           %baseurl%%current_page%
+#/page/%current_page%
+next_page_selector:       'none'
+
+strings_to_filter:        [ 'resident advisor', 'club.asp' ]
+#regexes_to_filter:        [ '/deco-proteste/', '/wone/' ]
+
+target_class:             \Nz\CrawlerBundle\Entity\Crawled
+article_base_filter:      "html body.single.single-post div.postagem"
+
+items:
+    title:                ["div.post_header h1.title a", text, [trim: true] ]
+    content:              ["div.post_body p", arrayValues, [filter: true] ]
+    medias:               ["div.post_body img", arrayAttributes, [matchMedias: true, filter: true]]
+
+filters:
+    medias:               [medias, makeAbsolute]
+    
+defaults:
+    enabled:              [1, bypass]
+
+entity:
+    title:                [title, string, [required: true] ]
+    content:              [content, wrap, [mask: "<p>%s</p>"]]
+    excerpt:              [content, excerpt, [length: 120]]
+    image:                [medias, image, [required: true] ]
+    gallery:              [medias, gallery, [name: title]]

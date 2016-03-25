@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    
+    <parameters>
+        <!--     tabonito   -->
+        <parameter key="app.crawler.client.tabonito.class">AppBundle\CrawlerClients\TabonitoClient</parameter>
+        
+    </parameters>
+    
+    <services>
+     
+        <!--   tabonito (code config) -->
+        <service id="app.crawler.client.tabonito" class="%app.crawler.client.tabonito.class%">
+            <tag name="nz.crawler" />
+            <argument>tabonito.pt</argument>
+            <argument type="service" id="nz.crawler.matcher.media" />
+            
+            <call method="setTargetClass">
+                <argument>\Nz\CrawlerBundle\Entity\Crawled</argument>
+            </call>
+            
+            <call method="setCategoryManager">
+                <argument type="service" id="sonata.classification.manager.category" />
+            </call>
+        </service>
+
+        
+    </services>
+
+</container>

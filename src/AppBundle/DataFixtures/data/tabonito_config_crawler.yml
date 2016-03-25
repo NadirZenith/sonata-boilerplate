@@ -1,0 +1,29 @@
+base_host:                  'tabonito.pt'
+base_domain:                http://www.tabonito.pt/
+logo_url:                   'http://www.tabonito.pt/sites/default/files/logo_0.png'
+baseurl:                    http://www.tabonito.pt/
+link_filter_selector:       body div.view-content h2 a
+start_page:                 1
+limit_pages:                2
+next_page_mask:             %baseurl%inicio?page=%current_page%
+
+target_class:               '\Nz\CrawlerBundle\Entity\Crawled'
+article_base_filter:        "#block-system-main > div > div > div > div > div.panels-flexible-row.panels-flexible-row-post-inner-main-row.panels-flexible-row-first.clearfix > div > div > div"
+
+strings_to_filter:          [ 'deco-proteste', 'Deco Proteste', 'wone', 'Tá Bonito', '/sites/all/modules/contrib/smiley/packs/moskis/', 'http://www.tabonito.pt/sites/default/files/related_images/decob.jpg' ]
+regexes_to_filter:          [ '/deco-proteste/', '/wone/' ]
+
+items:
+    title:                  ["h1", text, [trim: true, opt2: true] ]
+    content:                [".field-items p", arrayValues, [filter: true] ]
+    medias:                 [stack, stack, [ [ "iframe", arrayAttributes, [matchMedias: true, filter: true]], [ "div.field-items img", arrayAttributes, [matchMedias: true, filter: true]] ]]
+ 
+defaults:
+    enabled:                [1, bypass]
+
+entity:
+    title:                  [title, string, [required: true] ]
+    content:                [content, wrap, [mask: "<p>%s</p>"]]
+    excerpt:                [content, excerpt, [length: 120]]
+    image:                  [medias, image, [required: true] ]
+    gallery:                [medias, gallery, [name: title]]

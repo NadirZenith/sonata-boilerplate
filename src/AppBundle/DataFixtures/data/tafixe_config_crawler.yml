@@ -1,0 +1,31 @@
+baseurl:                    http://www.tafixe.com/
+base_host:                  'http://www.tafixe.com/'
+base_domain:                http://www.tafixe.com/
+logo_url:                   'http://www.tafixe.com/wp-content/uploads/2014/06/logo-tafixe2.png'
+
+link_filter_selector:       body .td-ss-main-content h3.entry-title a
+start_page:                 1
+limit_pages:                1
+next_page_mask:             %baseurl%page/%current_page%
+
+
+target_class:               '\Nz\CrawlerBundle\Entity\Crawled'
+article_base_filter:        "body article.type-post"
+
+strings_to_filter:          [ 'function(', 'images/smilies']
+regexes_to_filter:          [ '/deco-proteste/', '/wone/' ]
+
+items:
+    title:                  ["h1.entry-title", text, [trim: true, opt2: true] ]
+    content:                [".td-post-content p", arrayValues, [filter: true] ]
+    medias:                 [stack, stack, [ [ ".td-post-content iframe", arrayAttributes, [matchMedias: true, filter: true]], [ ".td-post-content img", arrayAttributes, [matchMedias: true, filter: true]] ]]
+ 
+defaults:
+    enabled:                [1, bypass]
+
+entity:
+    title:                  [title, string, [required: true] ]
+    content:                [content, wrap, [mask: "<p>%s</p>"]]
+    excerpt:                [content, excerpt, [length: 120]]
+    image:                  [medias, image, [required: true] ]
+    gallery:                [medias, gallery, [name: title]]

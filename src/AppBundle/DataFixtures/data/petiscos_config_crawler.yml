@@ -1,0 +1,36 @@
+base_host:                http://www.petiscos.com/
+base_domain:              http://www.petiscos.com/
+logo_url:                 'http://www.petiscos.com/imagens/logotipo.gif'
+baseurl:                  http://www.petiscos.com/lista_receitas.php?catid=34
+link_filter_selector:     html body div#main table a.linklistagem
+
+start_page:               0
+limit_pages:              1
+
+next_page_mask:           %baseurl%
+#/page/%current_page%
+next_page_selector:       'none'
+
+strings_to_filter:        [ 'Themes/default/images']
+#regexes_to_filter:       [ '/deco-proteste/', '/wone/' ]
+
+target_class:             \Nz\CrawlerBundle\Entity\Crawled
+article_base_filter:      "html body"
+
+items:
+    title:                ["div#header div#main table table table h1", text, [trim: true] ]
+    content:              ["div#header div#main table table table:nth-child(3) span.georgianormal", arrayValues, [filter: true] ]
+    medias:               ["div#header div#main table table table table:nth-child(3) img", arrayAttributes, [matchMedias: true, filter: true]]
+
+filters:
+    medias:               [medias, makeAbsolute]
+    
+defaults:
+    enabled:              [1, bypass]
+
+entity:
+    title:                [title, string, [required: true] ]
+    content:              [content, wrap, [mask: "<p>%s</p>"]]
+    excerpt:              [content, excerpt, [length: 120]]
+    image:                [medias, image, [required: true] ]
+    gallery:              [medias, gallery, [name: title]]

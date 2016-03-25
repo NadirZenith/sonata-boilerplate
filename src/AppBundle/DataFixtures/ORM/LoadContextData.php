@@ -42,6 +42,9 @@ class LoadContextData extends AbstractFixture implements OrderedFixtureInterface
 
         //news
         $this->addContext('news', 'News');
+        
+        //Crawl
+        $this->addContext('crawl', 'Crawler');
     }
 
     public function addContext($id, $name, $enabled = true)

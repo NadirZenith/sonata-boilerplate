@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <!--     example   -->
+        <parameter key="app.xxx.class">AppBundle\xxx</parameter>
+        
+    </parameters>
+    <services>
+
+        <!--      example          -->
+        <service id="app.admin.xxx" class="AppBundle\Admin\xxxAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="app" label="xxx"  label_catalogue="AppBundle" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+            <argument />
+            <argument>AppBundle\Entity\xxx</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+
+            <call method="setTranslationDomain">
+                <argument>AppBundle</argument>
+            </call>
+        </service>   
+        
+    </services>
+</container>

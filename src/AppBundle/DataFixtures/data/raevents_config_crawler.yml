@@ -1,0 +1,33 @@
+base_host:                residentadvisor.net
+base_domain:              https://www.residentadvisor.net/
+logo_url:                 'https://www.residentadvisor.net/images/ra-logo-b.png'
+baseurl:                  https://www.residentadvisor.net/events.aspx
+link_filter_selector:     html body#body form#Form1 main ul.content-list li.clearfix.pt1 div.content.clearfix div.plus8 div#event-listing.fl.col4 ul#items.list li article.event-item.clearfix.tickets-bkg-logo div.bbox h1 a
+start_page:               0
+limit_pages:              1
+
+next_page_mask:           '%baseurl%'
+next_page_selector:       'html body#body form#Form1 main ul.content-list li.clearfix.pt1 div.page-items.content ul li#liNext.but.arrow-right.right a'
+
+strings_to_filter:        [ 'resident advisor', 'club.asp' ]
+#regexes_to_filter:        [ '/deco-proteste/', '/wone/' ]
+
+target_class:             \Nz\CrawlerBundle\Entity\Crawled
+article_base_filter:      "body"
+
+items:
+    title:                ["header#header div#sectionHead h1", text, [trim: true] ]
+    content:              ["main#main ul.content-list li#event-detail.alt div.content.clearfix div#event-item div.left p", arrayValues, [filter: true] ]
+    medias:               ["main#main ul.content-list li#event-detail.alt div.content.clearfix div#event-item div.flyer a img", arrayAttributes, [matchMedias: true, filter: true]]
+
+filters:
+    medias:               [medias, makeAbsolute]
+    
+defaults:
+    enabled:              [1, bypass]
+
+entity:
+    title:                [title, string, [required: true] ]
+    content:              [content, wrap, [mask: "<p>%s</p>"]]
+    excerpt:              [content, excerpt, [length: 120]]
+    image:                [medias, image, [required: true] ]

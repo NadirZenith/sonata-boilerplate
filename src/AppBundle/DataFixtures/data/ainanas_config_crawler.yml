@@ -1,0 +1,31 @@
+base_host:                  'http://www.ainanas.com/'
+base_domain:                http://www.ainanas.com/
+logo_url:                   'http://ainanas.com/wp-content/uploads/a1.png'
+baseurl:                    http://www.ainanas.com/
+link_filter_selector:       body div#content a.post_title
+start_page:                 1
+limit_pages:                1
+next_page_mask:             %baseurl%page/%current_page%
+
+
+target_class:               '\Nz\CrawlerBundle\Entity\Crawled'
+article_base_filter:        "#content"
+
+strings_to_filter:          [ 'jquery' ]
+regexes_to_filter:          [ '/deco-proteste/', '/wone/' ]
+
+items:
+    title:                  ["a.post_title", text, [trim: true, opt2: true] ]
+    excerpt:                ["#excerpt-text", text, [trim: true]]
+    content:                ["#postxt article p", arrayValues, [filter: true] ]
+    medias:                 [stack, stack, [ [ "#postxt article iframe", arrayAttributes, [matchMedias: true, filter: true]], [ "script", arrayAttributes, [matchMedias: true, filter: true, att: "data-config"]], [ "#postxt article img", arrayAttributes, [matchMedias: true, filter: true ]] ]]
+ 
+defaults:
+    enabled:                [1, bypass]
+
+entity:
+    title:                  [title, string, [required: true] ]
+    content:                [content, wrap, [mask: "<p>%s</p>"]]
+    excerpt:                [excerpt, excerpt, [length: 320]]
+    image:                  [medias, image, [required: true] ]
+    gallery:                [medias, gallery, [name: title]]

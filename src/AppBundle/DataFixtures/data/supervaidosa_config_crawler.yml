@@ -1,0 +1,34 @@
+base_host:                http://camilacoelho.com/
+base_domain:              http://camilacoelho.com/
+logo_url:                 'http://camilacoelho.com/wp-content/themes/camilacoelho2015/imagens/logo.png'
+baseurl:                  http://camilacoelho.com/
+link_filter_selector:     html body.home.blog.is_home.is_computer div.container div.row.pageContent div.blog-main.col-md-8.col-sm-12 div.postagem.truncate div.post_header h1.title a
+start_page:               0
+limit_pages:              2
+
+next_page_mask:           %baseurl%/page/%current_page%
+next_page_selector:       'html body.home.blog.is_home.is_computer div.container div.row.pageContent div.blog-main.col-md-8.col-sm-12 div#footlink div.wp-pagenavi a.nextpostslink'
+
+strings_to_filter:        [ 'resident advisor', 'club.asp' ]
+#regexes_to_filter:        [ '/deco-proteste/', '/wone/' ]
+
+target_class:             \Nz\CrawlerBundle\Entity\Crawled
+article_base_filter:      "html body.single.single-post div.postagem"
+
+items:
+    title:                ["div.post_header h1.title a", text, [trim: true] ]
+    content:              ["div.post_body p", arrayValues, [filter: true] ]
+    medias:               ["div.post_body img", arrayAttributes, [matchMedias: true, filter: true]]
+
+filters:
+    medias:               [medias, makeAbsolute]
+    
+defaults:
+    enabled:              [1, bypass]
+
+entity:
+    title:                [title, string, [required: true] ]
+    content:              [content, wrap, [mask: "<p>%s</p>"]]
+    excerpt:              [content, excerpt, [length: 120]]
+    image:                [medias, image, [required: true] ]
+    gallery:              [medias, gallery, [name: title]]

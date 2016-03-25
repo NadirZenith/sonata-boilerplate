@@ -74,6 +74,7 @@ sonata_admin:
                 label_catalogue: AppBundle
                 icon:            '<i class="fa fa-globe"></i>'
                 items:
+                    - nz.crawler.admin.crawled
                     - nz.crawler.admin.profile
                     - nz.crawler.admin.link
                     
@@ -106,6 +107,7 @@ sonata_admin:
                 items:
                     - sonata.page.admin.page
                     - sonata.page.admin.site
+                    - nz.cron.admin.job    
 
             sonata.admin.group.administration:
                 label:           sonata_administration

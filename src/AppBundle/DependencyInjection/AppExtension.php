@@ -32,5 +32,7 @@ class AppExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $loader->load('event_listeners.xml');
+        $loader->load('crawler_clients.xml');
+        /*$loader->load('admin.xml');*/
     }
 }

@@ -85,7 +85,8 @@
         "php-ffmpeg/php-ffmpeg": "~0.5",
         "nz/wordpress-bundle": "dev-master",
         "nz/migration-bundle": "dev-master",
-        "nz/crawler-bundle": "dev-master"
+        "nz/crawler-bundle": "dev-master",
+        "nz/cron-bundle": "dev-master"
 
     },
     
@@ -105,6 +106,10 @@
         {
             "type": "git",
             "url": "https://github.com/NadirZenith/NzCrawlerBundle.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/NadirZenith/NzCronBundle.git"
         }
     ],
 
